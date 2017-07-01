@@ -10,5 +10,5 @@ Command line weather app that logs the temperature, wind speed, humidity, and cl
 
 ### Run
 ```
-node index.js -c Toronto
+node index.js -c "Toronto"
 ```
