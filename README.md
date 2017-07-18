@@ -11,3 +11,5 @@ Art design idea is courtesy of my 6 year old daughter.
 1. Git clone this repo onto your local machine
 2. Run ```node server.js```
 3. Point browser to ```localhost:3000```
+
+![](https://raw.githubusercontent.com/alexbotello/js-weather/master/static/img/preview.png)
