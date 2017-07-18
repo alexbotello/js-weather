@@ -1,9 +1,53 @@
 .drop {
-  margin-top: 5%;
+  margin-top: 0.8%;
 }
 
 .center {
     display: table;
     margin: 0 auto;
     width: 50%;
+}
+
+.font {
+  font-family: 'Schoolbell', cursive;
+  font-size: 20px;
+  text-align: center;
+}
+
+.space {
+  margin-left: 15%;
+  margin-top: 2.5%;
+}
+
+.title {
+  font-family: 'Schoolbell', cursive;
+  text-align : center;
+  font-size: 70px;
+  color: #ffff80;
+}
+#city {
+  color: #80bfff;
+}
+
+#temp {
+  color: #ff6666;
+}
+
+#humid {
+  color: #cca300;
+}
+
+#cloud {
+  color: #33ff77;
+}
+
+#wind {
+  color: #ff80ff;
+}
+
+p {
+  text-align: justify;
+  font-family: 'Schoolbell', cursive;
+  font-size: 26px;
+  color: #666666;
 }

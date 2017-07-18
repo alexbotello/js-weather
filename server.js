@@ -19,18 +19,22 @@ app.post('/', function(req, res) {
 
   request(url, function(err, response, body) {
     if(err) {
-      res.render('index', {weather: null, clouds: null, error: 'Error, please try again'});
+      res.render('index', {weather: null, error: 'Error, please try again'});
     }
     else {
       var weather = JSON.parse(body);
 
       if(weather.main === undefined) {
-        res.render('index', {weather: null, clouds: null, error: 'Error, please try again'});
+        res.render('index', {weather: null, error: 'Error, please try again'});
       }
       else {
-        var weatherMessage = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+        var temp = weather.main.temp;
+        var name = weather.name;
+        var humidity = weather.main.humidity;
         var clouds = weather.clouds.all;
-        res.render('index', {weather: weatherMessage, clouds: clouds, error: null});
+        var wind = weather.wind.speed;
+        res.render('index', {weather: temp, city: name, humidity: humidity,
+                             clouds: clouds, wind: wind, error: null});
       }
     }
   });

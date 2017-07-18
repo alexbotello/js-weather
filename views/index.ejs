@@ -8,26 +8,36 @@
     <title>JS-Weather</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Schoolbell" rel="stylesheet">
   </head>
 
-  <body>
+  <body style="background: url('img/bg2.jpg') center center no-repeat; background-attachment: fixed;">
+
+    <!-- Title -->
+    <div class="container">
+      <h2 class="title">JS-Weather</h2>
+    </div>
+    <!-- Form Input -->
     <div class="container drop">
-
-      <form class="form-horizontal" action="/" method="post">
+      <form class="form-horizontal font" action="/" method="post">
         <input type="text"class="form-control center" name="city" placeholder="Enter City">
-        <input class="btn btn-success btn-lrg center" style="width: 12%; margin-top: 1%;" type="submit" value="Get Weather">
+        <input class="btn btn-default btn-lrg center" style="width: 12%; margin-top: 2.5%;" type="submit" value="Get Weather">
       </form>
+    </div>
 
+    <!-- Data Display -->
+    <div class="container" style="margin-top: 2.0%;">
       <% if(weather !== null) { %>
-        <p class="center"><%= weather %></p>
-        <p class="center">It is <%= clouds %> % cloudy right now!</p>
+        <p style="margin-left: 15%;">It's <span id="temp"><%= weather %></span> degrees in <span id="city"><%= city %></span>!</p>
+        <p class="space">With a humidity of <span id="humid"><%= humidity %></span> %</p>
+        <p class="space">Cloud coverage is at <span id="cloud"><%= clouds %></span> %</p>
+        <p class="space">And wind speed is gusting at <span id="wind"><%= wind %></span> mph!</p>
       <% } %>
 
       <% if(error !== null){ %>
         <p><%=error %></p>
       <% } %>
-
-    </div>
+  </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
