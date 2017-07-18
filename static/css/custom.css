@@ -1,0 +1,9 @@
+.drop {
+  margin-top: 5%;
+}
+
+.center {
+    display: table;
+    margin: 0 auto;
+    width: 50%;
+}

@@ -1,6 +1,7 @@
 var request = require('request');
 var argv = require('yargs').argv;
 var env = require('dotenv').config();
+var apiKey = '3d7cdf1f4d0582673661289b7883bc7e'
 
 var key = process.env.API_KEY;
 var city = argv.c || 'round rock';
