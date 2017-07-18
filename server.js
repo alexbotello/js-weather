@@ -41,5 +41,5 @@ app.post('/', function(req, res) {
 });
 
 app.listen(3000, function() {
-  console.log('Weather App is now running on port 3000');
+  console.log('JS-Weather is now running on port 3000');
 });
