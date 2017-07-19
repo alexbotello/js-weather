@@ -33,8 +33,18 @@ app.post('/', function(req, res) {
         var humidity = weather.main.humidity;
         var clouds = weather.clouds.all;
         var wind = weather.wind.speed;
+
+        if (clouds >= 65) {
+          var image = "img/cloudy.png";
+        }
+        else if ((clouds >= 30) && (clouds <= 65)) {
+          var image = "img/kindacloudy.png";
+        }
+        else {
+          var image = "img/sun.png";
+        }
         res.render('index', {weather: temp, city: name, humidity: humidity,
-                             clouds: clouds, wind: wind, error: null});
+                             clouds: clouds, wind: wind, picture: image, error: null});
       }
     }
   });

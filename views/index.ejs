@@ -18,25 +18,32 @@
       <h2 class="title font">JS-Weather</h2>
     </div>
     <!-- Form Input -->
-    <div class="container drop">
+    <div class="container">
       <form class="form-horizontal font" action="/" method="post">
-        <input type="text"class="form-control center" name="city" placeholder="Enter City">
+        <input type="text" class="form-control center" name="city" placeholder="Enter City">
         <input class="btn btn-default btn-lrg center" style="width: 12%; margin-top: 2.5%;" type="submit" value="Get Weather">
       </form>
     </div>
 
     <!-- Data Display -->
-    <div class="container" style="margin-top: 2.0%;">
+    <div class="container drop">
+      <!-- Data Strings -->
       <% if(weather !== null) { %>
-        <p style="margin-left: 15%;">It's <span id="temp"><%= weather %></span> degrees in <span id="city"><%= city %></span>!</p>
+      <div class="data-string">
+        <p class="space">It's <span id="temp"><%= weather %></span> degrees in <span id="city"><%= city %></span>!</p>
         <p class="space">With a humidity of <span id="humid"><%= humidity %></span> %</p>
         <p class="space">Cloud coverage is at <span id="cloud"><%= clouds %></span> %</p>
         <p class="space">And wind speed is gusting at <span id="wind"><%= wind %></span> mph!</p>
-      <% } %>
+    </div>
+    <!-- Data Images -->
+    <div class="data-image">
+      <img src=<%= picture %>>
+    </div>
+    <% } %>
 
-      <% if(error !== null){ %>
-        <p><%=error %></p>
-      <% } %>
+    <% if(error !== null){ %>
+      <p><%=error %></p>
+    <% } %>
   </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
