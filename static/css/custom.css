@@ -21,7 +21,7 @@
   text-align : center;
   font-size: 70px;
   color: #ffff80;
-  margin-top: 2%;
+  margin-top: 0.3%;
 }
 
 .data-string {
@@ -53,6 +53,10 @@
 
 #wind {
   color: #ff80ff;
+}
+
+#pic {
+  
 }
 
 p {
