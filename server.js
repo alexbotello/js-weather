@@ -65,27 +65,28 @@ app.listen(3000, function() {
 
 /* FUNCTIONS FUNCTIONS FUNCTIONS FUNCTIONS */
 function selectImage(status, cloudData) {
-  if (status === 'moon') {
+  var img;
+  if (status === 'Night') {
     if (cloudData >= 65) {
-      var img = "img/cloudymoon.png";
+      img = "img/cloudymoon.png";
     }
     else if ((cloudData >= 30) && (cloudData <= 65)) {
-      var img = "img/kindacloudymoon.png";
+      img = "img/kindacloudymoon.png";
     }
     else {
-      var img= 'img/moon.png';
+      img= 'img/moon.png';
     }
   }
 
   else {
     if (cloudData >= 65) {
-      var img = "img/cloudy.png";
+      img = "img/cloudy.png";
     }
     else if ((cloudData >= 30) && (cloudData <= 65)) {
-      var img = "img/kindacloudy.png";
+      img = "img/kindacloudy.png";
     }
     else {
-      var img= "img/sun.png";
+      img= "img/sun.png";
     }
   }
   return img;
@@ -98,32 +99,35 @@ function findGeolocation(address, cb) {
       console.log('An Error Occured Finding Geolocation..');
     }
     else {
-      cb(data.results[0].geometry.location);
+      var location = data.results[0].geometry.location;
+      cb(location);
     }
   });
 }
 
 
 function determineDayOrNight(geo, cb) {
-  var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&formatted=0`
+  var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&date=yesterday&formatted=0`
 
   request(url, function(err, response, body) {
     if(err) {
       console.log('An Error Occured While Accessing Sunrise-Sunset API');
     }
     else {
-      var isSunOrMoon;
+      var status;
       var data = JSON.parse(body);
-      var sunrise = data.results.sunrise;
-      var time = new Date().toISOString();
 
-      if(time < sunrise) {
-        var isSunOrMoon = "moon";
+      var sunriseTime = data.results.sunrise;
+      var currentTime = new Date().toISOString();
+      var sunsetTime = data.results.sunset;
+
+      if((currentTime > sunriseTime) && (currentTime < sunsetTime)) {
+        status = "Day";
       }
       else {
-        var isSunOrMoon = 'sun';
+        status = "Night";
       }
-      cb(isSunOrMoon);
+      cb(status);
     }
   });
 }
