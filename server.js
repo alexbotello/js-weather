@@ -107,7 +107,7 @@ function findGeolocation(address, cb) {
 
 
 function determineDayOrNight(geo, cb) {
-  var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&date=yesterday&formatted=0`
+  var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&date=today&formatted=0`
 
   request(url, function(err, response, body) {
     if(err) {
