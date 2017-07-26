@@ -23,7 +23,7 @@ module.exports = function() {
     }
 
     else if (description in Weather) {
-      img = Weather[description][0];
+      img = Weather[description];
     }
     else {
       img = 'img/cloudy.png';
