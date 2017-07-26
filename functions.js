@@ -2,30 +2,31 @@ var geocoder = require('geocoder');
 var request = require('request');
 
 module.exports = function() {
-  this.selectImage = function(status, cloudData) {
+
+  this.selectImage = function(status, description) {
     var img;
-    if (status === 'Night') {
-      if (cloudData >= 65) {
-        img = "img/cloudymoon.png";
-      }
-      else if ((cloudData >= 30) && (cloudData <= 65)) {
-        img = "img/kindacloudymoon.png";
-      }
-      else {
-        img= 'img/moon.png';
-      }
+
+    if ((status === 'Night') && (description === 'clear sky')) {
+      img = Weather[description][1];
     }
 
+    else if ((status === 'Day') && (description === 'clear sky')) {
+      img = Weather[description][0];
+    }
+
+    else if ((status === 'Night') && (description === 'few clouds')) {
+      img = Weather[description][1];
+    }
+
+    else if ((status === 'Day') && (description === 'few clouds')) {
+      img = Weather[description][0];
+    }
+
+    else if (description in Weather) {
+      img = Weather[description][0];
+    }
     else {
-      if (cloudData >= 65) {
-        img = "img/cloudy.png";
-      }
-      else if ((cloudData >= 30) && (cloudData <= 65)) {
-        img = "img/kindacloudy.png";
-      }
-      else {
-        img= "img/sun.png";
-      }
+      img = 'img/cloudy.png';
     }
     return img;
   }
@@ -41,7 +42,6 @@ module.exports = function() {
       }
     });
   }
-
 
   this.determineDayOrNight = function(geo, cb) {
     var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&date=yesterday&formatted=0`
@@ -67,5 +67,14 @@ module.exports = function() {
         cb(status);
       }
     });
+  }
+
+  this.Weather = {
+    'clear sky': ['img/sun.png', 'img/moon.png'],
+    'few clouds': ['img/cloudysun.png', 'img/cloudymoon.png'],
+    'scattered clouds': 'img/cloudy.png',
+    'rain': 'img/rain.png',
+    'thunderstorm': 'img/thunderstorm.png',
+    'snow': 'snow.png'
   }
 };

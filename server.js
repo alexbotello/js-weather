@@ -39,13 +39,14 @@ app.post('/', function(req, res) {
         var humidity = weather.main.humidity;
         var clouds = weather.clouds.all;
         var wind = weather.wind.speed;
+        var description = weather.weather[0].description;
 
         // Get Latitude and Longitude of City
         findGeolocation(city, function(location) {
           var geolocation = location;
 
           determineDayOrNight(geolocation, function(status) {
-            var image = selectImage(status, clouds);
+            var image = selectImage(status, description);
             res.render('index', {weather: temp, city: name, humidity: humidity,
                                 clouds: clouds, wind: wind, picture: image,
                                 error: null});
