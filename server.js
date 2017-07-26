@@ -1,8 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var geocoder = require('geocoder');
 var request = require('request');
 var apiKey = '3d7cdf1f4d0582673661289b7883bc7e'
+
+require('./functions')(); // import 'functions.js'
 
 var app = express();
 
@@ -60,74 +61,3 @@ app.post('/', function(req, res) {
 app.listen(3000, function() {
   console.log('JS-Weather is now running on port 3000');
 });
-
-
-
-/* FUNCTIONS FUNCTIONS FUNCTIONS FUNCTIONS */
-function selectImage(status, cloudData) {
-  var img;
-  if (status === 'Night') {
-    if (cloudData >= 65) {
-      img = "img/cloudymoon.png";
-    }
-    else if ((cloudData >= 30) && (cloudData <= 65)) {
-      img = "img/kindacloudymoon.png";
-    }
-    else {
-      img= 'img/moon.png';
-    }
-  }
-
-  else {
-    if (cloudData >= 65) {
-      img = "img/cloudy.png";
-    }
-    else if ((cloudData >= 30) && (cloudData <= 65)) {
-      img = "img/kindacloudy.png";
-    }
-    else {
-      img= "img/sun.png";
-    }
-  }
-  return img;
-}
-
-
-function findGeolocation(address, cb) {
-  geocoder.geocode(address, function(err, data) {
-    if(err) {
-      console.log('An Error Occured Finding Geolocation..');
-    }
-    else {
-      var location = data.results[0].geometry.location;
-      cb(location);
-    }
-  });
-}
-
-
-function determineDayOrNight(geo, cb) {
-  var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&date=today&formatted=0`
-
-  request(url, function(err, response, body) {
-    if(err) {
-      console.log('An Error Occured While Accessing Sunrise-Sunset API');
-    }
-    else {
-      var status;
-      var data = JSON.parse(body);
-
-      var sunriseTime = data.results.sunrise;
-      var currentTime = new Date().toISOString();
-      var sunsetTime = data.results.sunset;
-
-      if((currentTime > sunriseTime) && (currentTime < sunsetTime)) {
-        status = "Day";
-      }
-      else {
-        status = "Night";
-      }
-      cb(status);
-    }
-  });
-}
