@@ -1,6 +1,3 @@
-var geocoder = require('geocoder');
-var request = require('request');
-
 module.exports = function() {
 
   this.selectImage = function(status, description) {
@@ -31,42 +28,19 @@ module.exports = function() {
     return img;
   }
 
-  this.findGeolocation = function(address, cb) {
-    geocoder.geocode(address, function(err, data) {
-      if(err) {
-        console.log('An Error Occured Finding Geolocation..');
-      }
-      else {
-        var location = data.results[0].geometry.location;
-        cb(location);
-      }
-    });
-  }
+  this.determineDayOrNight = function(time, sunrise, sunset) {
+    var status;
 
-  this.determineDayOrNight = function(geo, cb) {
-    var url = `https://api.sunrise-sunset.org/json?lat=${geo.lat}&lng=${geo.lng}&date=yesterday&formatted=0`
-
-    request(url, function(err, response, body) {
-      if(err) {
-        console.log('An Error Occured While Accessing Sunrise-Sunset API');
-      }
-      else {
-        var status;
-        var data = JSON.parse(body);
-
-        var sunriseTime = data.results.sunrise;
-        var currentTime = new Date().toISOString();
-        var sunsetTime = data.results.sunset;
-
-        if((currentTime > sunriseTime) && (currentTime < sunsetTime)) {
-          status = "Day";
-        }
-        else {
-          status = "Night";
-        }
-        cb(status);
-      }
-    });
+    if ((time < sunrise) && (time < sunset)) {
+      status = 'Night';
+    }
+    else if ((time > sunrise) && (time < sunset)) {
+      status = 'Day';
+    }
+    else if ((time > sunrise) && (time > sunset)) {
+      status = 'Night';
+    }
+    return status;
   }
 
   this.Weather = {

@@ -34,6 +34,7 @@ app.post('/', function(req, res) {
       }
 
       else {
+        // Set Weather Information
         var temp = weather.main.temp;
         var name = weather.name;
         var humidity = weather.main.humidity;
@@ -41,18 +42,17 @@ app.post('/', function(req, res) {
         var wind = weather.wind.speed;
         var description = weather.weather[0].description;
 
-        // Get Latitude and Longitude of City
-        findGeolocation(city, function(location) {
-          var geolocation = location;
+        // Set Time Variables
+        var currentTime = Math.floor(Date.now() / 1000);
+        var sunrise = weather.sys.sunrise;
+        var sunset = weather.sys.sunset;
 
-          determineDayOrNight(geolocation, function(status) {
-            var image = selectImage(status, description);
-            res.render('index', {weather: temp, city: name, humidity: humidity,
-                                clouds: clouds, wind: wind, picture: image,
-                                error: null});
+        var status = determineDayOrNight(currentTime, sunrise, sunset);
 
-          }); // end determineDayOrNight
-        }); // end findGeolocation
+        var image = selectImage(status, description);
+        res.render('index', {weather: temp, city: name, humidity: humidity,
+                            clouds: clouds, wind: wind, picture: image,
+                            error: null});
       }
     }
   });// end request
