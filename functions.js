@@ -3,28 +3,38 @@ module.exports = function() {
   this.selectImage = function(status, description) {
     var img;
 
-    if ((status === 'Night') && (description === 'clear sky')) {
-      img = Weather[description][1];
+    if (description === 'clear sky') {
+      img = `img/${status}.png`;
     }
 
-    else if ((status === 'Day') && (description === 'clear sky')) {
-      img = Weather[description][0];
+    else if (description === 'few clouds') {
+      img = `img/cloudy${status}.png`;
     }
 
-    else if ((status === 'Night') && (description === 'few clouds')) {
-      img = Weather[description][1];
+    else if (description === 'scattered clouds') {
+      img = `img/cloudy${status}.png`;
     }
 
-    else if ((status === 'Day') && (description === 'few clouds')) {
-      img = Weather[description][0];
-    }
-
-    else if (description in Weather) {
-      img = Weather[description];
-    }
-    else {
+    else if ((description === 'broken clouds') || (description === 'overcast clouds')) {
       img = 'img/cloudy.png';
     }
+
+    else if (description.indexOf('rain') !== -1) {
+      img = `img/rainy${status}.png`;
+    }
+
+    else if (description.indexOf('drizzle') !== -1) {
+      img = `img/rainy${status}.png`;
+    }
+
+    else if (description.indexOf('thunderstorm') !== -1) {
+      img = `img/thunder${status}.png`;
+    }
+
+    else if (description.indexOf('snow') !== -1) {
+      img = 'img/snow.png';
+    }
+
     return img;
   }
 
@@ -32,23 +42,14 @@ module.exports = function() {
     var status;
 
     if ((time < sunrise) && (time < sunset)) {
-      status = 'Night';
+      status = 'night';
     }
     else if ((time > sunrise) && (time < sunset)) {
-      status = 'Day';
+      status = 'day';
     }
     else if ((time > sunrise) && (time > sunset)) {
-      status = 'Night';
+      status = 'night';
     }
     return status;
-  }
-
-  this.Weather = {
-    'clear sky': ['img/sun.png', 'img/moon.png'],
-    'few clouds': ['img/cloudysun.png', 'img/cloudymoon.png'],
-    'scattered clouds': 'img/cloudy.png',
-    'rain': 'img/rain.png',
-    'thunderstorm': 'img/thunderstorm.png',
-    'snow': 'snow.png'
   }
 };
